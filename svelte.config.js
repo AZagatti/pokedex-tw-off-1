@@ -16,7 +16,7 @@ const config = {
       },
     }),
     paths: {
-      base: process.env.NODE_ENV === "production" ? "/pokedex-tw-off-1" : "",
+      base: process.env.GITHUB_PAGES === "true" ? "/pokedex-tw-off-1" : "",
     },
   },
 };
