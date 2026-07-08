@@ -2,6 +2,8 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { themeStore } from '$lib/stores/theme';
+	import { favoritesStore } from '$lib/stores/favorites';
+	import Header from '$lib/components/Header.svelte';
 
 	const { children } = $props();
 
@@ -9,6 +11,8 @@
 		const savedTheme = localStorage.getItem('theme') || 'light';
 		themeStore.set(savedTheme as 'light' | 'dark');
 		document.documentElement.dataset.theme = savedTheme;
+
+		favoritesStore.load();
 	});
 
 	$effect(() => {
@@ -19,4 +23,9 @@
 	});
 </script>
 
-{@render children()}
+<div class="min-h-screen flex flex-col">
+	<Header />
+	<main class="flex-1">
+		{@render children()}
+	</main>
+</div>

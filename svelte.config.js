@@ -6,7 +6,13 @@ const config = {
     adapter: adapter({
       fallback: "404.html",
       prerender: {
-        entries: ["*"],
+        entries: ["/"],
+        handleHttpError: ({ status, path, referrer }) => {
+          if (path.startsWith("/pokemon/") || path.startsWith("/berries/") || path.startsWith("/favorites")) {
+            return;
+          }
+          throw new Error(`${status} ${path}`);
+        }
       },
     }),
     paths: {
